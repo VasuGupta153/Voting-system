@@ -5,7 +5,7 @@ body {
 }
 
  body::before {
-  background: url('D:\Projects\Project9\client\assets\background.jpg') center no-repeat;
+  background: url('./background.jpg') center no-repeat;
   content: "";
   height: 100%;
   width: 100%;
