@@ -4,15 +4,6 @@ body {
     padding: 0;
 }
 
- body::before {
-  background: url('./background.jpg') center no-repeat;
-  content: "";
-  height: 100%;
-  width: 100%;
-  position: absolute; 
-  opacity: 0.6; 
-  z-index: -1;
- }
 
 .header {
     display: flex;
