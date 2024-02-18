@@ -1,101 +1,61 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
+import "./Data.sol";
 
 contract Election {
-    struct Candidate {
-        string name;
-        uint age;
-        bool isAlive;
-        uint netWorth; // Total net worth of the candidate
-        bool hasBadCriminalRecord;
+    struct candidate {
+        address add;
         uint numVotes;
     }
 
-    struct Voter {
-        string name;
-        uint age;
-        bool isAlive;
-        bool isAuthorized;
-        bool hasVoted;
-        bool verifiedByZKP; 
-        uint vote;
-        uint netWorth;
-        bool hasBadCriminalRecord;
-        bool runningForElect;
-    }
-    bool isFinished = false;
-    uint256 private t1;
-    uint256 private t2;
-
-    address private owner;
     string public electionName;
-    Candidate public winner;
+    string public purpose;
+    uint256 public ageCheck;
+    string public profCheck;
+    uint256 public timeDuration;
+    uint256 public timeCreation;
+    bool public isFinished = false;
+    candidate public winner;
+    address public dataContract;
 
-    mapping(address => Voter) public voters;
-    Candidate[] public candidates;
-    uint public totalVotes;
-    mapping(uint => bool) private usedZKPs; // Mapping to track used ZKPs
+    constructor(address _dataContract,string memory _electionName, string memory _purpose, uint256 _ageCheck, string memory _profCheck, uint256 _timeDuration) {
+        electionName = _electionName;
+        purpose = _purpose;
+        ageCheck = _ageCheck;
+        profCheck = _profCheck;
+        timeDuration = _timeDuration;
+        timeCreation = block.timestamp;
+        dataContract = _dataContract;
+    }
+    candidate[] public candidates;
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can call this function.");
-        _;
+    mapping(address => bool) public voters;
+    mapping(address => bool) public isCandidate;
+    mapping(address => bool) public hasVoted;
+    uint256 public totalVotes;
+    uint256 public totalvoters;
+  
+    function checkFinished() external returns (bool){
+        if(timeCreation + timeDuration <= block.timestamp){
+            isFinished = true;
+            winner = winningCandidate();
+        }
+        return isFinished;
     }
 
-    constructor(string memory _name) {
-        owner = msg.sender;
-        electionName = _name;
-        t1 = block.timestamp;
-        winner.name = "Election is under process!";
+    function retrieveWinner() view external returns(string memory,uint256,uint256){
+        string memory name = Data(dataContract).getNameByAddress(winner.add);
+        return (name,winner.numVotes,totalVotes);
     }
 
-    function runForElection() public {
-        require(!isFinished,"Election has ended");
-        require(voters[msg.sender].age >= 25, "Candidate must be at least 25 years old.");
-        require(voters[msg.sender].isAlive, "Deceased individuals are not allowed to become candidates.");
-        require(!voters[msg.sender].hasBadCriminalRecord, "Candidates with bad criminal records are not allowed.");
-        require(voters[msg.sender].isAuthorized, "You are not allowed to run for the election.");
-        candidates.push(Candidate(voters[msg.sender].name, voters[msg.sender].age, voters[msg.sender].isAlive, voters[msg.sender].netWorth, voters[msg.sender].hasBadCriminalRecord, 0));
+    function retrieveLeadingCandidate() view external returns (string memory) {
+        candidate memory leading = winningCandidate();
+        string memory name = Data(dataContract).getNameByAddress(leading.add);
+        return (name);
     }
+  
 
-    function numOfCandidates() public view returns(uint) {
-        return candidates.length;
-    }
-    
-    function validateZKP(uint zkp) pure private returns (bool) {
-        if (zkp > 0) return true;
-        return false;
-    }
-
-    function authorizeUser(string memory _name, uint _age, bool _isAlive, bool _hasBadCriminalRecord, uint netWorth, uint zkp) public {
-        require(!isFinished,"Election has ended");
-        require(_age >= 18, "Voter must be at least 18 years old.");
-        require(_age < 150, "Voter must be alive.");
-        require(!_hasBadCriminalRecord, "Voters with bad criminal records are not allowed.");
-        require(!voters[msg.sender].isAuthorized, "You have already been registered as a voter.");
-        require(!usedZKPs[zkp], "This ZKP has already been used."); // Check if the ZKP has been used before
-        require(validateZKP(zkp), "You are not an authorised Indian citizen.");
-        require(!voters[msg.sender].runningForElect,"You have already been registered for election");
-        address voterAddress = msg.sender;
-        voters[voterAddress] = Voter(_name, _age, _isAlive, true, false, true, 9999, netWorth, _hasBadCriminalRecord,true);
-        usedZKPs[zkp] = true; // Mark the ZKP as used
-    }
-
-    function vote(uint _voteIndex) public {
-        require(!isFinished,"Election has ended");
-        require(!voters[msg.sender].hasVoted, "You have already voted.");
-        require(voters[msg.sender].isAuthorized, "You are not authorized to vote.");
-        require(voters[msg.sender].age >= 18, "You must be at least 18 years old to vote.");
-        require(voters[msg.sender].isAlive, "Deceased individuals are not allowed to vote.");
-        require(voters[msg.sender].verifiedByZKP, "Voter data must be verified with Aadhar database.");
-
-        voters[msg.sender].vote = _voteIndex;
-        voters[msg.sender].hasVoted = true;
-
-        candidates[_voteIndex].numVotes += 1;
-        totalVotes += 1;
-    }
-
-    function winningCandidate() private view returns (uint _winningCandidate) {
+    function winningCandidate() private view returns (candidate memory _winningCandidate) {
         uint winningVoteCount = 0;
         uint winningCandidateIndex = 9999;
 
@@ -107,22 +67,41 @@ contract Election {
                 winningCandidateIndex = 9999;
             }
         }
-        _winningCandidate = winningCandidateIndex;
-        // Candidate[_winningCandidate].name;
+        _winningCandidate = candidates[winningCandidateIndex];
+
+    }
+
+    function retrieveChecks() external view returns (uint256, string memory){
+        return (ageCheck,profCheck);
+    }
+
+    function authorizeUser(address voter) external {
+        voters[voter] = true;
+        totalvoters++;
+    }
+
+    function retrieveRunForElectionChecks() external view returns (uint256, uint256){
+        return (totalvoters, candidates.length);
+    }
+
+    function runForElection(address voter) external {
+        isCandidate[voter] = true;
+        candidate memory cd = candidate(voter,0);
+        candidates.push(cd);
+    }
+
+    function numOfCandidates() public view returns(uint) {
+        return candidates.length;
     }
     
-    uint256 public TotalTimeElapsed;
-
-    function endElection() public onlyOwner {
-        require(!isFinished,"Election has already ended");
-        uint winningCandidateIndex = winningCandidate();
-        t2 = block.timestamp;
-        TotalTimeElapsed = t2 - t1;
-        if (winningCandidateIndex == 9999) {
-            winner.name = "It's a tie!";
-        } else {
-            winner = candidates[winningCandidateIndex];
+    function vote(address _voter, address _candidateAddress) external{
+        for(uint256 i = 0;i < candidates.length; i++){
+            if(candidates[i].add == _candidateAddress){
+                candidates[i].numVotes++;
+                hasVoted[_voter] = true;
+            }
         }
-        isFinished = true;
+        totalVotes++;
     }
+
 }
