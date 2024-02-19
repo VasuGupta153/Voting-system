@@ -1,74 +1,44 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Component/Header";
-import Election from "../Component/Election";
 import { ethers } from "ethers";
-import "../Component/Styles/User.css"
-import { useHref } from "react-router";
-
-// const contractAddress = "YOUR_CONTRACT_ADDRESS"; // Replace with your smart contract address
-// const contractABI = [/* Your smart contract ABI */]; // Replace with your smart contract ABI
-
+import abi from "../abis/Data.json";
+import { Link } from 'react-router-dom';
+import Election from "./Election";
 
 function User() {
-  const [ongoingElections, setOngoingElections] = useState([]);
-  const [pastElections, setPastElections] = useState([]);
+  const [contractData, setContractData] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //       const signer = provider.getSigner();
-  //       const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Use BrowserProvider instead of Web3Provider
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = provider.getSigner();
+        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+        const contract = new ethers.Contract(contractAddress, abi, provider);
 
-  //       // Fetch ongoing elections
-  //       const ongoingElectionsCount = await contract.getOngoingElectionsCount();
-  //       const ongoingElectionsData = await Promise.all(
-  //         Array.from({ length: ongoingElectionsCount.toNumber() }, (_, index) =>
-  //           contract.getOngoingElection(index)
-  //         )
-  //       );
+        const result = await contract.getElections();
+        setContractData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
 
-  //       // Fetch past elections
-  //       const pastElectionsCount = await contract.getPastElectionsCount();
-  //       const pastElectionsData = await Promise.all(
-  //         Array.from({ length: pastElectionsCount.toNumber() }, (_, index) =>
-  //           contract.getPastElection(index)
-  //         )
-  //       );
+    fetchData();
+  }, []);
 
-  //       setOngoingElections(ongoingElectionsData);
-  //       setPastElections(pastElectionsData);
-  //     } catch (error) {
-  //       console.error("Error fetching data from smart contract:", error);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, []);
+  const dataShow = contractData.map((temp, index) => (
+    <div>
+        <Link to={`/election/${temp.name}/${temp.address}/${temp.id}`}>
+          Name of Election: {temp.name}, Address: {temp.contractAddress}          
+        </Link>
+    </div>
+  ));
 
   return (
     <div className="container-style">
       <Header />
-      <h1>Welcome User</h1>
-      <button className="button-style" >
-        Create New Election
-      </button>
-
-      <div className="section-container-style">
-        <div className="section-style">
-          <h2>Ongoing Elections</h2>
-          {ongoingElections.map((election, index) => (
-            <Election key={index} title={election.title} status={election.status} />
-          ))}
-        </div>
-
-        <div className="section-style">
-          <h2>Past Elections</h2>
-          {pastElections.map((election, index) => (
-            <Election key={index} title={election.title} status={election.status} results={election.results} />
-          ))}
-        </div>
-      </div>
+      <div id="showData">{dataShow}</div>
     </div>
   );
 }

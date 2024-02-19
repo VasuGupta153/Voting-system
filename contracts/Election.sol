@@ -4,6 +4,7 @@ import "./Data.sol";
 
 contract Election {
     struct candidate {
+        string name;
         address add;
         uint numVotes;
     }
@@ -44,13 +45,13 @@ contract Election {
     }
 
     function retrieveWinner() view external returns(string memory,uint256,uint256){
-        string memory name = Data(dataContract).getNameByAddress(winner.add);
+        string memory name = Data(payable(dataContract)).getNameByAddress(winner.add);
         return (name,winner.numVotes,totalVotes);
     }
 
     function retrieveLeadingCandidate() view external returns (string memory) {
         candidate memory leading = winningCandidate();
-        string memory name = Data(dataContract).getNameByAddress(leading.add);
+        string memory name = Data(payable(dataContract)).getNameByAddress(leading.add);
         return (name);
     }
   
@@ -85,8 +86,9 @@ contract Election {
     }
 
     function runForElection(address voter) external {
+        string memory name = Data(payable(dataContract)).getNameByAddress(voter);
         isCandidate[voter] = true;
-        candidate memory cd = candidate(voter,0);
+        candidate memory cd = candidate(name,voter,0);
         candidates.push(cd);
     }
 
@@ -104,4 +106,10 @@ contract Election {
         totalVotes++;
     }
 
+    function getDeadline() external view returns (uint256){
+        return timeCreation + timeDuration;
+    }
+
+    fallback() external payable {}
+    receive() external payable {}
 }
