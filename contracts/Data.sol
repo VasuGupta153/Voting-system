@@ -56,4 +56,18 @@ contract Data {
     function getNameByAddress(address userAddress) view external returns (string memory){
         return usersMap[userAddress].name;
     }
+
+    function getElections() external view returns (contractDetails[] memory) {
+        contractDetails[] memory elecs = new contractDetails[](current_id);
+
+        for (uint256 i = 0; i < current_id; i++) {
+            elecs[i] = elections[i+1];
+        }
+
+        return elecs;
+    }
+
+
+    fallback() external payable{}
+    receive() external payable{}
 }

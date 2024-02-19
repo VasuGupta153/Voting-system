@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
-import "./Styles/UserForm.css"
 import abi from '../abis/Data.json';
+import "./Styles/UserForm.css"
 import { Link, useNavigate } from "react-router-dom";
 
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
 
-const UserForm = () => {
-  const [user, setUser] = useState({
+const CreateElection = () => {
+  const [contractDetails, setContractDetails] = useState({
+    id: 0,
     name: '',
-    email: '',
-    age: 0,
-    idProof: '',
-    profession: '',
+    address: 0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0,
+    purpose: '',
+    ageCheck: 0,
+    profCheck: '',
+    timeDuration:0
   });
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   const handleChange = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
+    setContractDetails({ ...contractDetails, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    const contractAddress = "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0";
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
 
@@ -31,23 +33,27 @@ const UserForm = () => {
       signer
     );
     try{
-      const tx = await contract.addUser((await signer).address, user);
+      const tx = await contract.addElection(contractDetails);
       await tx.wait();
     }catch(error){
       console.log(error);
     }
-    // await wait(signedTx);
-    // const signedTx = await (await signer).sendTransaction(tx);
-    // const result = await signedTx.send();
-    // console.log('Transaction hash:', result.hash);
-    setUser({ name: '', email: '',age : 0, idProof: '', profession: '' });
+    
+    setContractDetails({
+        id: 0,
+        name: '',
+        address: '',
+        purpose: '',
+        ageCheck: 0,
+        profCheck: '',
+        timeDuration:0 });
     navigate("/user");
   };
   
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
-      <h2>New User Registration</h2>
+      <h2>New Election Registration</h2>
 
       <div className="form-group">
         <label htmlFor="name">Name:</label>
@@ -55,63 +61,65 @@ const UserForm = () => {
           type="text"
           name="name"
           id="name"
-          value={user.name}
+          value={contractDetails.name}
           onChange={handleChange}
           required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="purpose">Purpose of election:</label>
         <input
-          type="email"
-          name="email"
-          id="email"
-          value={user.email}
+          type="text"
+          name="purpose"
+          id="purose"
+          value={contractDetails.purpose}
           onChange={handleChange}
           required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="age">Age:</label>
+        <label htmlFor="ageCheck">Age Check:</label>
         <input
           type="int"
-          name="age"
-          id="age"
-          value={user.age}
+          name="ageCheck"
+          id="ageCheck"
+          value={contractDetails.ageCheck}
           onChange={handleChange}
           required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="idProof">ID Proof:</label>
+        <label htmlFor="profCheck">IProfession Check:</label>
         <input
           type="text"
-          name="idProof"
-          id="idProof"
-          value={user.idProof}
+          name="profCheck"
+          id="profCheck"
+          value={contractDetails.profCheck}
           onChange={handleChange}
           required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="profession">Profession:</label>
+        <label htmlFor="timeDuration">Time Duration of election:</label>
         <input
-          type="text"
-          name="profession"
-          id="profession"
-          value={user.profession}
+          type="int"
+          name="ageCheck"
+          id="ageCheck"
+          value={contractDetails.ageCheck}
           onChange={handleChange}
           required
         />
       </div>
 
-      <button type="submit">Create Account</button>
+      
+
+      <button type="submit">Add Election</button>
     </form>
   );
 };
 
-export default UserForm;
+export default CreateElection;
