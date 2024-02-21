@@ -9,17 +9,12 @@ function Header() {
   const [isConnected, setIsConnected] = useState(false);
   const [account, setAccount] = useState("");
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
   const connectWallet = async () => {
     try {
       if (window.ethereum) {
-        // await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        setAccount(address);
-        setIsConnected(true);
-
+        await window.ethereum.request({ method: "eth_requestAccounts" });
       } else {
         alert("MetaMask extension not detected. Please install MetaMask.");
       }
@@ -27,13 +22,13 @@ function Header() {
       console.error("Error connecting to MetaMask:", error);
     }
   };
+  
 
   const handleUserLinkClick = async () => {
     if (isConnected) {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
       try {
-        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
         const contract = new ethers.Contract(
           contractAddress,
           abi,
@@ -60,31 +55,41 @@ function Header() {
 
   useEffect(() => {
     const checkConnection = async () => {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({
-            method: "eth_accounts",
-          });
-
+      try {
+        if (window.ethereum) {
+          const accounts = await window.ethereum.request({ method: "eth_accounts" });
           if (accounts.length > 0) {
             const address = accounts[0];
-            setAccount(address);
             setIsConnected(true);
-            const userExists = true;
-
+            setAccount(address);
+          } else {
+            setIsConnected(false);
+            setAccount("");
           }
-        } catch (error) {
-          console.error("Error checking MetaMask connection:", error);
+        } else {
+          setIsConnected(false);
+          setAccount("");
         }
+      } catch (error) {
+        console.error("Error checking MetaMask connection:", error);
+        setIsConnected(false);
+        setAccount("");
       }
     };
-
+  
     checkConnection();
-  }, [navigate]); // Include navigate in the dependency array
+    // Add an event listener to detect MetaMask connection changes
+    window.ethereum.on("accountsChanged", (accounts) => {
+      checkConnection();
+    });
+  }, [setIsConnected, setAccount]); // Include dependencies for re-running
+  
 
   return (
     <>
       <header className="header">
+        {/* <h1>addres is {process.env.REACT_API_KEY}</h1> */}
+        {/* {console.log(process.env.REACT_APP_API_KEY)} */}
         <div className="header-name"></div>
         <ul className="header-links">
           <li>

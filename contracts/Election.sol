@@ -106,9 +106,17 @@ contract Election {
         totalVotes++;
     }
 
-    function getDeadline() external view returns (uint256){
-        return timeCreation + timeDuration;
+    function isFinishedFunction() external returns (bool){
+        if(timeDuration + timeCreation < block.timestamp){
+            isFinished = true;
+        }
+        return isFinished;
     }
+    
+    function getCandidates() external view returns (candidate[] memory) {
+        return candidates;
+    }
+
 
     fallback() external payable {}
     receive() external payable {}

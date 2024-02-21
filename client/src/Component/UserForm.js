@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
 
 const UserForm = () => {
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -21,7 +22,6 @@ const UserForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
 
