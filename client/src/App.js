@@ -20,7 +20,7 @@ function App() {
         <Route path = "/user" element = {<User/>} />
         <Route path = "/newuser" element = {<NewUser/>} />
         <Route path = "/newuser" element = {<NewUser/>} />
-        <Route path="/election/:contractName/:contractAddress/:contractId" element={<Election />} />
+        <Route path = "/election" element = {<Election/>} />
         <Route path = "/createElections" element = {<CreateElection />} />
     
       </Routes>

@@ -1,440 +1,470 @@
 [
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_dataContract",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "_electionName",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_purpose",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ageCheck",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_profCheck",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_timeDuration",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "fallback"
-  },
-  {
-    "inputs": [],
-    "name": "ageCheck",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "voter",
-        "type": "address"
-      }
-    ],
-    "name": "authorizeUser",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "candidates",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "add",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "numVotes",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "checkFinished",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "dataContract",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "electionName",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getDeadline",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "hasVoted",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "isCandidate",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "isFinished",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "numOfCandidates",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "profCheck",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "purpose",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "retrieveChecks",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "retrieveLeadingCandidate",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "retrieveRunForElectionChecks",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "retrieveWinner",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "voter",
-        "type": "address"
-      }
-    ],
-    "name": "runForElection",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "timeCreation",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "timeDuration",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalVotes",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalvoters",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_voter",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_candidateAddress",
-        "type": "address"
-      }
-    ],
-    "name": "vote",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "voters",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "winner",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "add",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "numVotes",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "receive"
-  }
-]
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "_dataContract",
+			"type": "address"
+		  },
+		  {
+			"internalType": "string",
+			"name": "_electionName",
+			"type": "string"
+		  },
+		  {
+			"internalType": "string",
+			"name": "_purpose",
+			"type": "string"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "_ageCheck",
+			"type": "uint256"
+		  },
+		  {
+			"internalType": "string",
+			"name": "_profCheck",
+			"type": "string"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "_timeDuration",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	  },
+	  {
+		"stateMutability": "payable",
+		"type": "fallback"
+	  },
+	  {
+		"inputs": [],
+		"name": "ageCheck",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "voter",
+			"type": "address"
+		  }
+		],
+		"name": "authorizeUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"name": "candidates",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "name",
+			"type": "string"
+		  },
+		  {
+			"internalType": "address",
+			"name": "add",
+			"type": "address"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "numVotes",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "checkFinished",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "dataContract",
+		"outputs": [
+		  {
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "electionName",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "getCandidates",
+		"outputs": [
+		  {
+			"components": [
+			  {
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			  },
+			  {
+				"internalType": "address",
+				"name": "add",
+				"type": "address"
+			  },
+			  {
+				"internalType": "uint256",
+				"name": "numVotes",
+				"type": "uint256"
+			  }
+			],
+			"internalType": "struct Election.candidate[]",
+			"name": "",
+			"type": "tuple[]"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		  }
+		],
+		"name": "hasVoted",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		  }
+		],
+		"name": "isCandidate",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "isFinished",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "isFinishedFunction",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "numOfCandidates",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "profCheck",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "purpose",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "retrieveChecks",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  },
+		  {
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "retrieveLeadingCandidate",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "retrieveRunForElectionChecks",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "retrieveWinner",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "voter",
+			"type": "address"
+		  }
+		],
+		"name": "runForElection",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "timeCreation",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "timeDuration",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "totalVotes",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "totalvoters",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "_voter",
+			"type": "address"
+		  },
+		  {
+			"internalType": "address",
+			"name": "_candidateAddress",
+			"type": "address"
+		  }
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		  }
+		],
+		"name": "voters",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "winner",
+		"outputs": [
+		  {
+			"internalType": "string",
+			"name": "name",
+			"type": "string"
+		  },
+		  {
+			"internalType": "address",
+			"name": "add",
+			"type": "address"
+		  },
+		  {
+			"internalType": "uint256",
+			"name": "numVotes",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"stateMutability": "payable",
+		"type": "receive"
+	  }
+	]
