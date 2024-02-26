@@ -3,9 +3,7 @@ import Header from "../Component/Header";
 import { ethers } from "ethers";
 import abi from "../abis/Data.json";
 import { Link ,useNavigate} from 'react-router-dom';
-import Election from "./Election";
 import "./Styles/User.css";
-import electionAbi from "../abis/Election.json"
 
 function User() {
   const [contractData, setContractData] = useState([]);
@@ -35,25 +33,15 @@ function User() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const Datacontract = new ethers.Contract(contractAddress, abi, provider);
-        
-        const ElectionProvider = new ethers.Contract(temp.contractAddress,electionAbi,provider);    
-        const ElectionSigner = new ethers.Contract(temp.contractAddress,electionAbi,signer);
-        const isFinished = ElectionSigner.isFinishedFunction();
-        
-        const ageThreshold = await ElectionProvider.ageCheck();
-        const professionShould = await ElectionProvider.profCheck();
-        const age = await Datacontract.usersMap(signer.address).age;
-        const profession = await Datacontract.usersMap(signer.address).profession;
-        
-
-        if(age >= ageThreshold && profession !== professionShould){
-          ElectionSigner.authorizeUser(signer.address);
-        }
+        const age = (await Datacontract.usersMap(signer.address)).age;
+        const profession = (await Datacontract.usersMap(signer.address)).profession;
         Navigate('/election',{
         state: {
           electionName: temp.name,
           electionAddress: temp.contractAddress,
           electionId: temp.id,
+          userAge: age,
+          userProf: profession
         }}
         )
       }}>Name of Election: {temp.name}, Address: {temp.contractAddress}</button>
