@@ -26,7 +26,7 @@ function Election(props) {
       try {
         if (window.ethereum) {
           provider = new ethers.BrowserProvider(window.ethereum);
-          signer = provider.getSigner();
+          signer = await provider.getSigner();
           setIsConnected(true);
         } else {
           alert("MetaMask extension not detected. Please install MetaMask.");
@@ -43,8 +43,8 @@ function Election(props) {
           abi,
           signer
         )
-        const isFinished = await signerContract.isFinishedFunction();
-        setIsFinsihed(isFinished);
+        // const isFinished = await signerContract.isFinishedFunction();
+        // setIsFinsihed(isFinished);
         const candidates = await providerContract.getCandidates();
         setCandidateList(candidates);
         const check = Number(await providerContract.totalVotes());
@@ -63,6 +63,36 @@ function Election(props) {
   }
   ,[]);
 
+  const authorizeYourSelf = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const contractAddress = location.state.electionAddress;
+    const providerContract = new ethers.Contract(
+      contractAddress,
+      abi,
+      provider
+    )
+    const signerContract = new ethers.Contract(
+     contractAddress,
+     abi,
+     signer
+   )
+   const checkIfAuthorized = await providerContract.voters(signer.address);
+    if(checkIfAuthorized){
+      alert("Already Authorized");
+    }else{
+      const ageCheck = await providerContract.ageCheck();
+      const profCheck = await providerContract.profCheck();
+      console.log(location.state.userAge);
+      if(ageCheck <= location.state.userAge && profCheck === location.state.userProf){
+        const tx = await signerContract.authorizeUser(signer.address);
+        tx.wait();
+        alert("You are Authorized");
+      }else{
+        alert("You cannot participate");
+      }
+    }
+  }
 
   const runForElection = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -139,17 +169,17 @@ function Election(props) {
   if(!isConnected){
     return ("Connect Your MetaMask");
   }else{
-    if(isFinished){
-      return (
-        <div>
-          <Header />
-          <h1>{election.name}</h1>
-          <h3>{election.address}</h3>
-          <h2>The Winning Candidate is:</h2>
-          <h2>{leadingCandidate}</h2> 
-        </div>
-      );
-    }else{
+    // if(isFinished){
+    //   return (
+    //     <div>
+    //       <Header />
+    //       <h1>{election.name}</h1>
+    //       <h3>{election.address}</h3>
+    //       <h2>The Winning Candidate is:</h2>
+    //       <h2>{leadingCandidate}</h2> 
+    //     </div>
+    //   );
+    // }else{
       return (
         <div>
           <Header />
@@ -157,13 +187,13 @@ function Election(props) {
           <h3>{election.address}</h3>
           {/* leadingcandidate & deadline  */} 
           <h2>{leadingCandidate}</h2> 
-        
+          <button onClick={authorizeYourSelf}> Authorize </button>
           <button onClick={runForElection}>Run for Election</button>
           <div id="showData">{dataShow}</div>
         </div>
       );
     }
-  }
+  // }
 }
 
 export default Election;
