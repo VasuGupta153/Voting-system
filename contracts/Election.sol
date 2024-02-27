@@ -15,6 +15,7 @@ contract Election {
     string public profCheck;
     uint256 public timeDuration;
     uint256 public timeCreation;
+    uint256 public deadLine;
     bool public isFinished = false;
     candidate public winner;
     address public dataContract;
@@ -27,6 +28,7 @@ contract Election {
         timeDuration = _timeDuration;
         timeCreation = block.timestamp;
         dataContract = _dataContract;
+        deadLine = _timeDuration + block.timestamp;
     }
     candidate[] public candidates;
 
@@ -117,6 +119,23 @@ contract Election {
         return candidates;
     }
 
+    function getTime() external view returns (uint256){
+        return block.timestamp;
+    }
+
+    function canAuthorize(uint256 _age,string memory _prof) external view returns (bool){
+        if(_age >= ageCheck && keccak256(abi.encodePacked(_prof)) == keccak256(abi.encodePacked(profCheck))){
+            return true;
+        }
+        return false;
+    }
+
+    function canVote() external view returns (bool){
+        if(totalvoters >= 2 * numOfCandidates()){
+            return true;
+        }
+        return false;
+    }
 
     fallback() external payable {}
     receive() external payable {}

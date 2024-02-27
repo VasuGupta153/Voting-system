@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import "./Styles/UserForm.css"
 import abi from '../abis/Data.json';
 import { Link, useNavigate } from "react-router-dom";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Container,
+} from '@chakra-ui/react'
 
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
 
@@ -111,6 +118,76 @@ const UserForm = () => {
 
       <button type="submit">Create Account</button>
     </form>
+
+      // <FormControl className='user-form'>
+      //   <h2>Register User</h2>
+      //   <FormLabel>
+      //     <label htmlFor="name">Name:</label>
+      //       <input
+      //         type="text"
+      //         name="name"
+      //         id="name"
+      //         value={user.name}
+      //         onChange={handleChange}
+      //         required
+      //       />
+      //   </FormLabel>
+      //   <br />
+      //   <FormLabel>
+      //     <label htmlFor="email">Email:</label>
+      //     <input
+      //       type="email"
+      //       name="email"
+      //       id="email"
+      //       value={user.email}
+      //       onChange={handleChange}
+      //       required
+      //     />
+      //     <FormHelperText>We'll never share your email.</FormHelperText>
+      //   </FormLabel>
+      //   <br />
+
+      //   <FormLabel>
+      //     <label htmlFor="age">Age:</label>
+      //     <input
+      //       type="int"
+      //       name="age"
+      //       id="age"
+      //       value={user.age}
+      //       onChange={handleChange}
+      //       required
+      //     />
+      //   </FormLabel>
+      //   <br />
+      //   <FormLabel>
+      //     <label htmlFor="idProof">ID Proof:</label>
+      //     <input
+      //       type="text"
+      //       name="idProof"
+      //       id="idProof"
+      //       value={user.idProof}
+      //       onChange={handleChange}
+      //       required
+      //     />
+      //   </FormLabel>
+      //   <br />
+      //   <FormLabel>
+      //     <label htmlFor="profession">Profession:</label>
+      //     <input
+      //       type="text"
+      //       name="profession"
+      //       id="profession"
+      //       value={user.profession}
+      //       onChange={handleChange}
+      //       required
+      //     />
+      //   </FormLabel>
+      //   <br />
+      //   <Container className='submitting'>
+      //     <button type="submit">Create Account</button>
+      //   </Container>
+      // </FormControl>
+    
   );
 };
 

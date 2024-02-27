@@ -3,6 +3,7 @@ import abi from '../abis/Data.json';
 import "./Styles/UserForm.css"
 import { Link, useNavigate } from "react-router-dom";
 import Header from './Header';
+import { Container, textDecoration } from '@chakra-ui/react';
 
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
 
@@ -54,11 +55,11 @@ const CreateElection = () => {
   
 
   return (
-    <>
+    <div>
+
     <Header />
-    {/* console.log("hi"); */}
       <form className="user-form" onSubmit={handleSubmit}>
-        <h2>New Election Registration</h2>
+        <h2 >New Election Registration</h2>
 
         <div className="form-group">
           <label htmlFor="name">Name:</label>
@@ -71,6 +72,7 @@ const CreateElection = () => {
             required
           />
         </div>
+        <br />
 
         <div className="form-group">
           <label htmlFor="purpose">Purpose of election:</label>
@@ -83,6 +85,7 @@ const CreateElection = () => {
             required
           />
         </div>
+        <br />
 
         <div className="form-group">
           <label htmlFor="ageCheck">Age Check:</label>
@@ -95,9 +98,10 @@ const CreateElection = () => {
             required
           />
         </div>
+        <br />
 
         <div className="form-group">
-          <label htmlFor="profCheck">IProfession Check:</label>
+          <label htmlFor="profCheck">Profession Check:</label>
           <input
             type="text"
             name="profCheck"
@@ -107,6 +111,7 @@ const CreateElection = () => {
             required
           />
         </div>
+        <br />
 
         <div className="form-group">
           <label htmlFor="timeDuration">Time Duration of election:</label>
@@ -120,8 +125,9 @@ const CreateElection = () => {
           />
         </div>
         <button type="submit">Add Election</button>
-      </form>
-  </>
+      </form> 
+    </div>
+  
   );
 
 };

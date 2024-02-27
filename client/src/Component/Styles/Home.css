@@ -25,6 +25,7 @@ body {
     opacity: 0.75;
 }
 
+
 .header-links {
     list-style: none;
     display: flex;
@@ -38,7 +39,7 @@ body {
 }
 
 .header-links li a {
-    color: #fff;
+    color: #373434;
     text-decoration: none;
     padding: 35px;
 }
@@ -66,7 +67,7 @@ body {
   /* Style for the button when not connected */
   .wallet-box button {
     padding: 10px 15px;
-    background-color: #3498db;
+    background-color: #90b7d1;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -76,4 +77,12 @@ body {
   
   .wallet-address {
     margin: 5px; /* Add margin around the displayed wallet address */
+  }
+
+  .logo{
+    height: 16vh;
+  }
+  .texting{
+    font-size: xx-large;
+    font-weight: 700;
   }

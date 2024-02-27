@@ -1,11 +1,13 @@
 .user-form {
-    max-width: 400px;
+    max-width: 80vh;
+    height: 70vh;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 22vh;
+    margin-top: 10vh;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(251, 246, 246);
   }
   
   .user-form h2 {
@@ -14,6 +16,12 @@
     text-align: center;
   }
   
+  .user-form button{
+    background-color: #4caf50;
+    width: 13vh;
+    height: 3vh;
+  }
+
   .form-group {
     margin-bottom: 15px;
   }
@@ -44,4 +52,14 @@
   button:hover {
     background-color: #45a049;
   }
-  
+  .submitting {
+   
+    height: 5vh;
+    padding: 1vh;
+    width: 2vh;
+  }
+
+  .submitting button{
+    width: 8vh;
+    height: 3vh;
+  }

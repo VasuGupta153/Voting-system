@@ -24,3 +24,62 @@
 .middle-container{
     margin-top: 10vh;
 }
+.create-election{
+    width: 12vh;
+    height: 6vh;
+    background-color: #45a049;
+}
+.create-election:hover{
+    background-color: #2a5f2d;
+}
+#showData{
+    width: 150vh;
+    height: 1vh;
+    border-radius: 5%;
+    padding: 1vh;
+    margin-left: 28vh;
+}
+.election-names{
+    height: 5vh;
+    width: 120vh;
+    background-color: #45a049;
+}
+.election-names:hover{
+    height: 5vh;
+    background-color: #3d8940;
+}
+
+.name{
+    font-size: x-large;
+    display: flex;
+    padding-left: 2.5vh;
+}
+
+.props{
+    font-weight: 700;
+    color: rgb(211, 224, 226);
+    padding-left: 1vh;
+    padding-right: 4vh;
+}
+
+#candidates{
+    margin: 0 0 10px 0;
+    padding: 10px;
+    background-color: #e9e4e4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    margin-left: 3vw;
+    font-size: x-large;
+    margin-right: 3vw;
+    color: black;
+}
+.showData{
+    width: 10vh;
+    height: 8vh;
+    border-radius: 5%;
+    padding: 1vh;
+    margin-left: 28vh;
+    font-weight: 900;
+    font-size: xx-large;
+}

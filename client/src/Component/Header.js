@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../Component/Styles/Home.css';
 import abi from "../abis/Data.json";
-
+import logo from "./Styles/logo.png"
+import { Box, Button, Container, Flex, SimpleGrid, Menu, IconButton, MenuButton, MenuList, MenuItem,Text } from '@chakra-ui/react'
+import Image from 'react'
+import { HamburgerIcon } from '@chakra-ui/icons'
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
+
 
 function Header() {
   const [isConnected, setIsConnected] = useState(false);
@@ -86,44 +90,58 @@ function Header() {
   
 
   return (
-    <>
-      <header className="header">
-        {/* <h1>addres is {process.env.REACT_API_KEY}</h1> */}
-        {/* {console.log(process.env.REACT_APP_API_KEY)} */}
-        <div className="header-name"></div>
-        <ul className="header-links">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-  
-            <Link to="/contact">Contact Us</Link>
-          </li>
-          <li>
-            {/* <a onClick={handleUserLinkClick} style={}>User</a> */}
-            {/* <Link onClick={handleUserLinkClick}>User</Link> */}
-            {/* <img src="" alt="" /> */}
-            <button  onClick={handleUserLinkClick}>User</button>
-          </li>
-        </ul>
-        <div className="wallet-section">
-          {isConnected ? (
-            <div className="wallet-box">
-              <p className="wallet-address">
-                Connected: {`${account.substring(0, 3)}...${account.slice(-3)}`}
-              </p>
-            </div>
-          ) : (
-            <button className="wallet-box" onClick={connectWallet}>
-              Connect Wallet
-            </button>
-          )}
-        </div>
-      </header>
-    </>
+
+      <Box className="Header" boxShadow='lg' bg = "#90b7d1">
+      <Container maxW={1400}>
+          <SimpleGrid templateColumns={{ lg: 'repeat(3, 1fr)', base: 'repeat(2, 1fr)' }}>
+              <Box>
+                  <img src={logo} className="logo" alt="alternate" />
+              </Box>
+              <Flex display={{ lg: 'flex', base: 'none' }} placeItems='center' color='black' fontSize={25} fontWeight='semibold' gap={10}>
+                  <Link to='/'>Home</Link>
+                  <Link to='/about'>About</Link>
+                  <Link to='/contact'>Contact</Link>
+
+              </Flex>
+              <Box display={{ lg: 'initial', base: 'none' }}>
+                  <Button mt='5vh' size='lg' colorScheme='green' float='right' onClick={handleUserLinkClick}>User</Button>
+                  {isConnected ? (
+                    <Box p="5vh">
+                      <Button bg="#fff" size='lg'  >
+                        Connected: {`${account.substring(0, 3)}...${account.slice(-3)}`}
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Box p="5vh">
+                      <Button onClick={connectWallet}  bg="#fff" _hover={{ bg: 'teal.700' }}>
+                        Connect Wallet
+                      </Button>
+                    </Box>
+                  )}
+              </Box>
+              
+              
+              <Box pt='20px' display={{ lg: 'none', base: 'initial' }}>
+                  <Menu  >
+                      <MenuButton float='right'
+                          as={IconButton}
+                          aria-label='Options'
+                          icon={<HamburgerIcon />}
+                          variant='outline'
+                      />
+                      <MenuList>
+                        <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
+                        <MenuItem onClick={() => navigate("/about")}>About</MenuItem>
+                        <MenuItem onClick={() => navigate("/contact")}>Contact Us</MenuItem>
+                      </MenuList>
+
+                  </Menu>
+              </Box>
+          </SimpleGrid>
+      </Container>
+  </Box>
+
+    
   );
 }
 

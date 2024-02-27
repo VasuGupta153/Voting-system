@@ -1,0 +1,53 @@
+
+.name{
+    font-size: x-large;
+    display: flex;
+    padding-left: 2.5vh;
+}
+
+.props{
+    font-weight: 700;
+    color: rgb(118, 122, 124);
+    padding-left: 1vh;
+    padding-right: 4vh;
+}
+.showData{
+    width: 10vh;
+    height: 8vh;
+    border-radius: 5%;
+    padding: 1vh;
+    margin-left: 28vh;
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+#candidates{
+    margin: 0 0 10px 0;
+    width: 80%;
+    padding: 10px;
+    background-color: #c8c2c2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    margin-left: 3vw;
+    font-size: x-large;
+    margin-right: 3vw;
+}
+
+.vote-button{
+    padding: '1vh';
+    margin-right: '7vw';
+}
+.top-list{
+    margin-left: 25vw;
+    padding: 5vh;
+}
+
+.values{
+    font-weight: 500;
+    font-size: x-large;
+    text-decoration: solid black;
+}
+.names{
+    font-weight: 500;
+}

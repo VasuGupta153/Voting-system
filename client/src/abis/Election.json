@@ -69,6 +69,43 @@
 		"inputs": [
 		  {
 			"internalType": "uint256",
+			"name": "_age",
+			"type": "uint256"
+		  },
+		  {
+			"internalType": "string",
+			"name": "_prof",
+			"type": "string"
+		  }
+		],
+		"name": "canAuthorize",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "canVote",
+		"outputs": [
+		  {
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [
+		  {
+			"internalType": "uint256",
 			"name": "",
 			"type": "uint256"
 		  }
@@ -122,6 +159,19 @@
 	  },
 	  {
 		"inputs": [],
+		"name": "deadLine",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
 		"name": "electionName",
 		"outputs": [
 		  {
@@ -158,6 +208,19 @@
 			"internalType": "struct Election.candidate[]",
 			"name": "",
 			"type": "tuple[]"
+		  }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	  },
+	  {
+		"inputs": [],
+		"name": "getTime",
+		"outputs": [
+		  {
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
 		  }
 		],
 		"stateMutability": "view",

@@ -2,7 +2,8 @@ import {React,useEffect,useState} from "react";
 import abi from "../abis/Election.json";
 import Header from "./Header";
 import { useLocation } from "react-router-dom";
-
+import "./Styles/Election.css"
+import { Container,Text, background,Button } from "@chakra-ui/react";
 const { ethers} = require("ethers"); 
 
 function Election(props) {
@@ -14,7 +15,7 @@ function Election(props) {
     id : 0
   })
   const [leadingCandidate, setLeadingCandidate] = useState("");
-  const [isFinished,setIsFinsihed] = useState();
+  const [isFinished,setIsFinished] = useState(false);
   const [candidateList, setCandidateList] = useState([]);
 
 
@@ -24,7 +25,7 @@ function Election(props) {
     let provider,signer;
     async function intialiser(){
       try {
-        if (window.ethereum) {
+        if (window.ethereum) {  
           provider = new ethers.BrowserProvider(window.ethereum);
           signer = await provider.getSigner();
           setIsConnected(true);
@@ -38,13 +39,12 @@ function Election(props) {
           abi,
           provider
         )
-        const signerContract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        )
-        // const isFinished = await signerContract.isFinishedFunction();
-        // setIsFinsihed(isFinished);
+        const deadLine = await providerContract.deadLine();
+        const currTime = await providerContract.getTime();
+        console.log(currTime);
+        if(currTime >= deadLine){
+          setIsFinished((isFinished) => !isFinished);
+        }
         const candidates = await providerContract.getCandidates();
         setCandidateList(candidates);
         const check = Number(await providerContract.totalVotes());
@@ -58,6 +58,7 @@ function Election(props) {
       } catch (error) {
         console.error("Error connecting to MetaMask:", error);
       }
+      console.log(isFinished);
     } 
     intialiser();
   }
@@ -81,10 +82,8 @@ function Election(props) {
     if(checkIfAuthorized){
       alert("Already Authorized");
     }else{
-      const ageCheck = await providerContract.ageCheck();
-      const profCheck = await providerContract.profCheck();
-      console.log(location.state.userAge);
-      if(ageCheck <= location.state.userAge && profCheck === location.state.userProf){
+      const canAuth = await providerContract.canAuthorize(location.state.userAge,location.state.userProf);
+      if(canAuth){
         const tx = await signerContract.authorizeUser(signer.address);
         tx.wait();
         alert("You are Authorized");
@@ -111,17 +110,14 @@ function Election(props) {
     const checkIfAuthorized = await providerContract.voters(signer.address);
     if(checkIfAuthorized){
       let check = await providerContract.isCandidate(signer.address);
-      if(check){
+      if(check){~
         alert('Already candidate');
       }else{
-        let totalvote = Number(await providerContract.totalvoters());
-        let candidateLen = Number(await providerContract.numOfCandidates());
-        console.log(totalvote);
-        console.log(candidateLen);
-        if(totalvote >= 2*candidateLen){
+        const checking = await providerContract.canVote();
+        if(checking){
           const tx = await signerContract.runForElection(signer.address);
           tx.wait();
-          alert('congratulations');
+          alert('Congrats! You are now a candidate~');
         }else{
           alert('Not Enough total vote');
         }
@@ -159,8 +155,10 @@ function Election(props) {
   }
   const dataShow = candidateList.map((temp, index) => (
     <div key={index}>
-      <h3>Candidate: {temp.name}</h3>
-      <button onClick={() => vote(temp.add)}>Vote</button> 
+      <div id="candidates" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        Candidate {index + 1}: {temp.name}
+        <Button mr='5vw'bg='#cac2c2' onClick={() => vote(temp.add)}>Vote</Button>
+      </div>
       {/* <button onClick={vote(temp.add)}>vote</button> */}
     </div>  
   ));
@@ -169,31 +167,43 @@ function Election(props) {
   if(!isConnected){
     return ("Connect Your MetaMask");
   }else{
-    // if(isFinished){
-    //   return (
-    //     <div>
-    //       <Header />
-    //       <h1>{election.name}</h1>
-    //       <h3>{election.address}</h3>
-    //       <h2>The Winning Candidate is:</h2>
-    //       <h2>{leadingCandidate}</h2> 
-    //     </div>
-    //   );
-    // }else{
+    if(isFinished){
       return (
         <div>
           <Header />
-          <h1>{election.name}</h1>
-          <h3>{election.address}</h3>
-          {/* leadingcandidate & deadline  */} 
-          <h2>{leadingCandidate}</h2> 
-          <button onClick={authorizeYourSelf}> Authorize </button>
-          <button onClick={runForElection}>Run for Election</button>
-          <div id="showData">{dataShow}</div>
+          <Text fontSize="x-large" fontWeight='bold' p='3vh'>
+            <span className="name">Name of Election: <span className="props">{election.name}</span> Address: <props className="props">{election.address}</props></span>
+          </Text>
+          <Text fontSize="x-large" fontWeight='bold' pl='5.2vh'>Winning Candidate: {leadingCandidate}</Text>
+          <br />
+          <hr />
+          <br />
+        </div>
+      );
+    }else{
+      return (
+        <div>
+          <Header />
+          
+            <Text fontSize="x-large" fontWeight='bold' p='3vh'>
+            <span className="name">Name of Election: <span className="props">{election.name}</span> Address: <props className="props">{election.address}</props></span>
+            </Text>
+            <Text fontSize="x-large" fontWeight='bold' pl='3vh'></Text>
+          
+          
+          <Text fontSize="x-large" fontWeight='bold' pl='5.2vh'>Leading Candidate: {leadingCandidate}</Text> 
+          <br />
+          <hr />
+          <br />
+          <Button p='3vh' mr = '2vh' ml='5vh' onClick={authorizeYourSelf}> Authorize </Button>
+          <Button p='3vh' m = '1vh' onClick={runForElection}>Run for Election</Button>
+          <br />
+          <br />
+          <span className="showData"><span className="top-list">Candidates:</span>   <br /> {dataShow}</span>
         </div>
       );
     }
-  // }
+  }
 }
 
 export default Election;
