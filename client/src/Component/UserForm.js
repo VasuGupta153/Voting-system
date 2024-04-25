@@ -8,6 +8,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   Container,
+  Button
 } from '@chakra-ui/react'
 
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
@@ -43,10 +44,6 @@ const UserForm = () => {
     }catch(error){
       console.log(error);
     }
-    // await wait(signedTx);
-    // const signedTx = await (await signer).sendTransaction(tx);
-    // const result = await signedTx.send();
-    // console.log('Transaction hash:', result.hash);
     setUser({ name: '', email: '',age : 0, idProof: '', profession: '' });
     navigate("/user");
   };
@@ -116,7 +113,9 @@ const UserForm = () => {
         />
       </div>
 
-      <button type="submit">Create Account</button>
+      <button type="submit" style={{ fontSize: '17px'}}>𝗖𝗿𝗲𝗮𝘁𝗲 𝗔𝗰𝗰𝗼𝘂𝗻𝘁</button>
+      
+
     </form>
 
       // <FormControl className='user-form'>

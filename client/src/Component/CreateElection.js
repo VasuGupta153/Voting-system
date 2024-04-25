@@ -3,6 +3,7 @@ import abi from '../abis/Data.json';
 import "./Styles/UserForm.css"
 import { Link, useNavigate } from "react-router-dom";
 import Header from './Header';
+import Footer from "./Footer";
 import { Container, textDecoration } from '@chakra-ui/react';
 
 const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
@@ -126,6 +127,9 @@ const CreateElection = () => {
         </div>
         <button type="submit">Add Election</button>
       </form> 
+      <br />
+      <br />
+      <Footer/>
     </div>
   
   );

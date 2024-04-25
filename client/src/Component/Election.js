@@ -4,7 +4,9 @@ import Header from "./Header";
 import { useLocation } from "react-router-dom";
 import "./Styles/Election.css"
 import { Container,Text, background,Button } from "@chakra-ui/react";
+import Footer from "./Footer";
 const { ethers} = require("ethers"); 
+
 
 function Election(props) {
   const location = useLocation();
@@ -155,10 +157,11 @@ function Election(props) {
   }
   const dataShow = candidateList.map((temp, index) => (
     <div key={index}>
-      <div id="candidates" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        Candidate {index + 1}: {temp.name}
-        <Button mr='5vw'bg='#cac2c2' onClick={() => vote(temp.add)}>Vote</Button>
-      </div>
+      <div id="candidates" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontFamily: 'MathSans, sans-serif' }}>
+  Candidate {index + 1}: {temp.name}
+  <Button mr='5vw' bg='#cac2c2' onClick={() => vote(temp.add)}>Vote</Button>
+</div>
+
       {/* <button onClick={vote(temp.add)}>vote</button> */}
     </div>  
   ));
@@ -176,8 +179,33 @@ function Election(props) {
           </Text>
           <Text fontSize="x-large" fontWeight='bold' pl='5.2vh'>Winning Candidate: {leadingCandidate}</Text>
           <br />
-          <hr />
           <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+         
+          
+          <Footer/>
         </div>
       );
     }else{
@@ -195,11 +223,33 @@ function Election(props) {
           <br />
           <hr />
           <br />
-          <Button p='3vh' mr = '2vh' ml='5vh' onClick={authorizeYourSelf}> Authorize </Button>
-          <Button p='3vh' m = '1vh' onClick={runForElection}>Run for Election</Button>
+            <Button p='3vh' mr='2vh' ml='5vh' onClick={authorizeYourSelf} bg='#ddd' fontSize={20} _hover={{ bg: '#ccc' }}>𝖠𝗎𝗍𝗁𝗈𝗋𝗂𝗌𝖾</Button>
+            <Button p='3vh' m='1vh' onClick={runForElection} bg='#ddd' fontSize={20} _hover={{ bg: '#ccc' }}>𝖱𝗎𝗇 𝖿𝗈𝗋 𝖤𝗅𝖾𝖼𝗍𝗂𝗈𝗇</Button>
+
           <br />
           <br />
-          <span className="showData"><span className="top-list">Candidates:</span>   <br /> {dataShow}</span>
+          <span className="showData"><span className="top-list">𝖢𝖺𝗇𝖽𝗂𝖽𝖺𝗍𝖾𝗌:</span>   <br /> {dataShow}</span>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <Footer/>
         </div>
       );
     }

@@ -6,8 +6,8 @@ import logo from "./Styles/logo.png"
 import { Box, Button, Container, Flex, SimpleGrid, Menu, IconButton, MenuButton, MenuList, MenuItem,Text } from '@chakra-ui/react'
 import Image from 'react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
 
+const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
 
 function Header() {
   const [isConnected, setIsConnected] = useState(false);
@@ -26,7 +26,6 @@ function Header() {
       console.error("Error connecting to MetaMask:", error);
     }
   };
-  
 
   const handleUserLinkClick = async () => {
     if (isConnected) {
@@ -38,10 +37,8 @@ function Header() {
           abi,
           provider
         );
-        // console.log(contract);
         const output = (await signer).address;
         const check = await contract.userExist(output);
-        // await console.log(check);
         if (check) {
           navigate("/user");
         } else {
@@ -51,12 +48,10 @@ function Header() {
         console.error("Error checking user existence:", error);
       }
     } else {
-      // Handle the case where the user is not connected
       alert("Please connect your wallet before navigating to the user page.");
     }
   };
   
-
   useEffect(() => {
     const checkConnection = async () => {
       try {
@@ -82,66 +77,69 @@ function Header() {
     };
   
     checkConnection();
-    // Add an event listener to detect MetaMask connection changes
     window.ethereum.on("accountsChanged", (accounts) => {
       checkConnection();
     });
-  }, [setIsConnected, setAccount]); // Include dependencies for re-running
-  
+  }, [setIsConnected, setAccount]);
 
   return (
+    <Box>
+    <Box className="Header" boxShadow="0 0 10px rgba(0, 0, 0, 0.5)" bg = "#427D9D"  >
+      <Container maxW={1400} maxH={160}>
+        <SimpleGrid templateColumns={{ lg: 'repeat(3, 1fr)', base: 'repeat(2, 1fr)' }}>
+          <Box fontSize={70} fontWeight='bold' color='#DDF2FD' p={6}>
+            <Link to='/' >𝚅𝙾𝚃𝙴</Link>
+          </Box>
+          <Flex display={{ lg: 'flex', base: 'none' }} placeItems='top' p='6.5vh' color='#9BBEC8' fontSize={25} fontWeight='semibold' gap={10}>
+            <Link to='/'>𝖧𝗈𝗆𝖾</Link>
+            <Link to='/about'>𝖠𝖻𝗈𝗎𝗍</Link>
+            <Link to='/contact'>𝖢𝗈𝗇𝗍𝖺𝖼𝗍</Link>
+          </Flex>
+          <Box display={{ lg: 'initial', base: 'none' }}>
+            <Button mt='6vh' size='lg' colorScheme='green' float='right' onClick={handleUserLinkClick}  >𝖤𝗅𝖾𝖼𝗍𝗂𝗈𝗇𝗌</Button>
 
-      <Box className="Header" boxShadow='lg' bg = "#90b7d1">
-      <Container maxW={1400}>
-          <SimpleGrid templateColumns={{ lg: 'repeat(3, 1fr)', base: 'repeat(2, 1fr)' }}>
-              <Box>
-                  <img src={logo} className="logo" alt="alternate" />
+            {isConnected ? (
+              <Box p="6vh">
+                <Button bg="#fff" size="lg"  >
+                  𝖢𝗈𝗇𝗇𝖾𝖼𝗍𝖾𝖽: {`${account.substring(0, 3)}...${account.slice(-3)}`}
+                </Button>
               </Box>
-              <Flex display={{ lg: 'flex', base: 'none' }} placeItems='center' color='black' fontSize={25} fontWeight='semibold' gap={10}>
-                  <Link to='/'>Home</Link>
-                  <Link to='/about'>About</Link>
-                  <Link to='/contact'>Contact</Link>
-
-              </Flex>
-              <Box display={{ lg: 'initial', base: 'none' }}>
-                  <Button mt='5vh' size='lg' colorScheme='green' float='right' onClick={handleUserLinkClick}>User</Button>
-                  {isConnected ? (
-                    <Box p="5vh">
-                      <Button bg="#fff" size='lg'  >
-                        Connected: {`${account.substring(0, 3)}...${account.slice(-3)}`}
-                      </Button>
-                    </Box>
-                  ) : (
-                    <Box p="5vh">
-                      <Button onClick={connectWallet}  bg="#fff" _hover={{ bg: 'teal.700' }}>
-                        Connect Wallet
-                      </Button>
-                    </Box>
-                  )}
+            ) 
+            : (
+              <Box p="6vh">
+                <Button onClick={connectWallet} bg="#fff" _hover={{ bg: 'teal.700' }} size="lg">
+                  𝖢𝗈𝗇𝗇𝖾𝖼𝗍 𝖶𝖺𝗅𝗅𝖾𝗍
+                </Button>
               </Box>
               
-              
-              <Box pt='20px' display={{ lg: 'none', base: 'initial' }}>
-                  <Menu  >
-                      <MenuButton float='right'
-                          as={IconButton}
-                          aria-label='Options'
-                          icon={<HamburgerIcon />}
-                          variant='outline'
-                      />
-                      <MenuList>
-                        <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
-                        <MenuItem onClick={() => navigate("/about")}>About</MenuItem>
-                        <MenuItem onClick={() => navigate("/contact")}>Contact Us</MenuItem>
-                      </MenuList>
-
-                  </Menu>
-              </Box>
-          </SimpleGrid>
+            )}
+            
+          </Box>
+          <Box pt='20px' display={{ lg: 'none', base: 'initial' }}>
+            <Menu>
+              <MenuButton float='right' as={IconButton} aria-label='Options' icon={<HamburgerIcon />} variant='outline' />
+              <MenuList>
+                <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
+                <MenuItem onClick={() => navigate("/about")}>About</MenuItem>
+                <MenuItem onClick={() => navigate("/contact")}>Contact Us</MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+        </SimpleGrid>
       </Container>
-  </Box>
-
-    
+    </Box>
+      <Link to="/profile">
+          <Button
+            aria-label="User Icon"
+            
+            variant="outline"
+            leftIcon={<i className="fas fa-user"></i>}
+            className="profile"
+          >
+            Profile
+          </Button>
+      </Link>
+      </Box>
   );
 }
 

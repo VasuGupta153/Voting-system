@@ -42,7 +42,7 @@
 .election-names{
     height: 5vh;
     width: 120vh;
-    background-color: #45a049;
+    background-color: #9BBEC8;
 }
 .election-names:hover{
     height: 5vh;
@@ -65,7 +65,7 @@
 #candidates{
     margin: 0 0 10px 0;
     padding: 10px;
-    background-color: #e9e4e4;
+    background-color: #B4D4FF;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
