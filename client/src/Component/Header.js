@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../Component/Styles/Home.css';
 import abi from "../abis/Data.json";
-import logo from "./Styles/logo.png"
-import { Box, Button, Container, Flex, SimpleGrid, Menu, IconButton, MenuButton, MenuList, MenuItem,Text } from '@chakra-ui/react'
-import Image from 'react'
-import { HamburgerIcon } from '@chakra-ui/icons'
-
-const { ethers} = require("ethers"); // Ensure correct import for your Ethers.js version
+import { Box, Button, Container, Flex, SimpleGrid, Menu, IconButton, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { FaUser } from 'react-icons/fa'; 
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { ethers } from "ethers"; 
 
 function Header() {
   const [isConnected, setIsConnected] = useState(false);
   const [account, setAccount] = useState("");
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate(); 
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
   const connectWallet = async () => {
@@ -84,38 +82,48 @@ function Header() {
 
   return (
     <Box>
-    <Box className="Header" boxShadow="0 0 10px rgba(0, 0, 0, 0.5)" bg = "#427D9D"  >
-      <Container maxW={1400} maxH={160}>
-        <SimpleGrid templateColumns={{ lg: 'repeat(3, 1fr)', base: 'repeat(2, 1fr)' }}>
-          <Box fontSize={70} fontWeight='bold' color='#DDF2FD' p={6}>
-            <Link to='/' >𝚅𝙾𝚃𝙴</Link>
-          </Box>
-          <Flex display={{ lg: 'flex', base: 'none' }} placeItems='top' p='6.5vh' color='#9BBEC8' fontSize={25} fontWeight='semibold' gap={10}>
-            <Link to='/'>𝖧𝗈𝗆𝖾</Link>
-            <Link to='/about'>𝖠𝖻𝗈𝗎𝗍</Link>
-            <Link to='/contact'>𝖢𝗈𝗇𝗍𝖺𝖼𝗍</Link>
-          </Flex>
-          <Box display={{ lg: 'initial', base: 'none' }}>
-            <Button mt='6vh' size='lg' colorScheme='green' float='right' onClick={handleUserLinkClick}  >𝖤𝗅𝖾𝖼𝗍𝗂𝗈𝗇𝗌</Button>
-
-            {isConnected ? (
-              <Box p="6vh">
-                <Button bg="#fff" size="lg"  >
-                  𝖢𝗈𝗇𝗇𝖾𝖼𝗍𝖾𝖽: {`${account.substring(0, 3)}...${account.slice(-3)}`}
+      <Box className="Header" boxShadow="0 0 10px rgba(0, 0, 0, 0.5)" bg = "#427D9D">
+        <Container maxW={1400} maxH={160}>
+          <SimpleGrid columns={{ lg: 3, base: 1 }} alignItems="center">
+            <Box fontSize={70} fontWeight='bold' color='#DDF2FD' p={6}>
+              <Link to='/' >𝚅𝙾𝚃𝙴</Link>
+            </Box>
+            <Flex justifyContent="flex-end"  color='#9BBEC8' fontSize={25} fontWeight='semibold' gap={10} pr={40}>
+              <Link to='/'>𝖧𝗈𝗆𝖾</Link>
+              <Link to='/about'>𝖠𝖻𝗈𝗎𝗍</Link>
+              <Link to='/contact'>𝖢𝗈𝗇𝗍𝖺𝖼𝗍</Link>
+            </Flex>
+            
+            <Flex justifyContent="flex-end"   gap={18}>
+              
+              <Box>
+                <Button size='lg' colorScheme='green' onClick={handleUserLinkClick}>
+                  𝖤𝗅𝖾𝖼𝗍𝗂𝗈𝗇𝗌
                 </Button>
               </Box>
-            ) 
-            : (
-              <Box p="6vh">
+              {isConnected ? (
+                <Box>
+                  <Button bg="#fff" size="lg" variant="outline">
+                    𝖢𝗈𝗇𝗇𝖾𝖼𝗍𝖾𝖽: {`${account.substring(0, 3)}...${account.slice(-3)}`}
+                  </Button>
+                </Box>
+              ) : (
                 <Button onClick={connectWallet} bg="#fff" _hover={{ bg: 'teal.700' }} size="lg">
                   𝖢𝗈𝗇𝗇𝖾𝖼𝗍 𝖶𝖺𝗅𝗅𝖾𝗍
                 </Button>
+              )}
+              <Box>
+                <Link to="/profile">
+                  <Button aria-label="User Icon" variant="outline" size="lg" leftIcon={<FaUser />}>
+                    Profile
+                  </Button>
+                </Link>
               </Box>
-              
-            )}
-            
-          </Box>
-          <Box pt='20px' display={{ lg: 'none', base: 'initial' }}>
+            </Flex>
+          </SimpleGrid>
+        </Container>
+      </Box>
+      <Box pt='20px' display={{ lg: 'none', base: 'initial' }}>
             <Menu>
               <MenuButton float='right' as={IconButton} aria-label='Options' icon={<HamburgerIcon />} variant='outline' />
               <MenuList>
@@ -125,21 +133,7 @@ function Header() {
               </MenuList>
             </Menu>
           </Box>
-        </SimpleGrid>
-      </Container>
     </Box>
-      <Link to="/profile">
-          <Button
-            aria-label="User Icon"
-            
-            variant="outline"
-            leftIcon={<i className="fas fa-user"></i>}
-            className="profile"
-          >
-            Profile
-          </Button>
-      </Link>
-      </Box>
   );
 }
 

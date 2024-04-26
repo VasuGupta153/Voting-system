@@ -2,17 +2,17 @@
     max-width: 80vh;
     height: 70vh;
     margin: 0 auto;
-    padding: 20px;
+    padding: 3vh;
     margin-top: 10vh;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2vh;
+    box-shadow: 0 0 10vh rgba(0, 0, 0, 0.1);
     background-color: rgb(251, 246, 246);
   }
   
   .user-form h2 {
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
     text-align: center;
   }
   
@@ -23,29 +23,29 @@
   }
 
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 2vh;
   }
   
   label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 1vh;
   }
   
   input {
     width: 100%;
-    padding: 8px;
+    padding: 0.6vh;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 4vh;
     box-sizing: border-box;
   }
   
   button {
     background-color: #4caf50;
     color: white;
-    padding: 10px 15px;
+    padding: 10vh 15vw;
     border: none;
-    border-radius: 4px;
+    border-radius: 1vh;
     cursor: pointer;
   }
   

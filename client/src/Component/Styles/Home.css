@@ -36,7 +36,7 @@ body {
 }
 
 .header-links li {
-    margin-left: 20px;
+    margin-left: 20vw;
 }
 
 .header-links li a {
@@ -58,20 +58,20 @@ body {
   
   .wallet-box {
     display: inline-block;
-    padding: 10px 15px; /* Adjust padding as needed */
+    padding: 10vh 15vw; /* Adjust padding as needed */
     background-color: #071a27; /* Choose your desired color */
     color: #ffffff; /* Text color */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5vh; /* Rounded corners */
     cursor: pointer;
   }
   
   /* Style for the button when not connected */
   .wallet-box button {
-    padding: 10px 15px;
+    padding: 10vh 15vw;
     background-color: #90b7d1;
     color: #ffffff;
     border: none;
-    border-radius: 5px;
+    border-radius: 5vh;
     cursor: pointer;
     font-size: x-large;
   }
@@ -100,7 +100,7 @@ body {
     font-size: 5vh;
   }
   .profile{
-    right: 0vh;
+   
     top: -10vh;
     left: 186vh;
     color: #fff;
